@@ -1,31 +1,25 @@
 <template lang="html">
  
     <GridLayout
-        backgroundColor="white"
+    class='main'
         rows="auto,auto"
-        height="100%"
-        width="100%"
       >
-        <GridLayout row="0" rows="auto,auto" height="30%" width="100%" backgroundColor="#ef7e14">
+        <GridLayout class="profile-container" row="0" rows="auto,auto" >
           <Button
             row="0"
             class="normalized-button cross-button"
             @tap="closeDrawer()"
           ></Button>
-          <StackLayout height="80%" width="100%" orientation="vertical" row="1">
+          <StackLayout class="user-details" row="1" orientation="vertical">
             <Image class="user-image" src="res://icon"></Image>
-            <Label text="Zhiyong Li" color="white" fontSize="18%" marginLeft="10%" marginTop="5%"></Label>
+            <Label class="user-name" text="Zhiyong Li"></Label>
             <Label
+            class="user-email"
               text="dev@zhiyongli.com"
-              fontSize="14%"
-              marginLeft="10%"
-              color="white"
-              opacity="0.7"
-              marginBottom="2%"
             ></Label>
           </StackLayout>
         </GridLayout>
-        <StackLayout row="1" height="75%" width="100%" orienation="vertical">
+        <StackLayout class="drawer-options" row="1" orienation="vertical">
           <Button class="normalized-button drawer-button home-button" @tap="onHomeTap()" text="Home"></Button>
           <Button class="normalized-button drawer-button settings-button" @tap="onSettingTap()" text="Setting"></Button>
           <Button class="normalized-button drawer-button logout-button" @tap="onLogoutTap()" text="Logout"></Button>
@@ -70,9 +64,41 @@ export default {
 </script>
 
 <style lang="css">
-ActionBar {
-  background-color: #53ba82;
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.profile-container {
+  height: 30%;
+  width: 100%;
+  background-color: #ef7e14;
+}
+
+.user-details {
+  height: 80%;
+  width: 100%;
+}
+
+.user-name {
   color: #ffffff;
+  font-size: 18%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.user-email {
+  font-size: 14%;
+  margin-left: 10%;
+  color: #ffffff;
+  opacity: 0.7;
+  margin-bottom: 2%;
+}
+
+.drawer-options {
+  height: 75%;
+  width: 100%;
 }
 
 .title {

@@ -1,200 +1,79 @@
 <template>
   <Page class="main-page" actionBarHidden="true">
     <StackLayout orientation="vertical" class="main-page">
-      <GridLayout height="10%" width="100%" backgroundColor="#e9e9e9">
-        <GridLayout
-          height="100%"
-          width="60%"
-          rows="auto,auto"
-          horizontalAlignment="center"
-          verticalAlignment="middle"
-        >
-          <Label
-            row="0"
-            height="60%"
-            text="OVERVIEW"
-            fontSize="24"
-            fontWeight="700"
-            color="#ef7e14"
-            textTransform="none"
-            horizontalAlignment="center"
-          ></Label>
-          <Label
-            row="1"
-            height="40%"
-            text="Checked at: July 4th, 12:00:30"
-            fontSize="15"
-            textTransform="none"
-            horizontalAlignment="center"
-          ></Label>
+      <GridLayout class="action-container">
+        <GridLayout class="action-labels-container" rows="auto,auto">
+          <Label class="heading-label" row="0" text="OVERVIEW"></Label>
+          <Label class="report-label" row="1" text="Checked at: July 4th, 12:00:30"></Label>
         </GridLayout>
 
-        <Image
-          src="res://menu"
-          height="50%"
-          width="10%"
-          horizontalAlignment="left"
-          verticalAlignment="middle"
-          @tap="openDrawer()"
-          marginLeft="10"
-        ></Image>
+        <Image class="menu-icon" src="res://menu" @tap="openDrawer()"></Image>
       </GridLayout>
 
-      <StackLayout height="90%" width="100%">
+      <StackLayout class="main-list-container">
         <ListView for="(wareshouse,index) in wareshouses" class="main-page">
           <v-template>
             <StackLayout orientation="vertical">
               <GridLayout
+                class="main-list-item"
                 orientation="horizontal"
-                marginTop="0"
-                marginBottom="0"
-                backgroundColor="#ee7e13"
-                height="60"
                 @tap="selectedIndex=index"
               >
-                <Image
-                  src="res://f1_base"
-                  verticalAlignment="middle"
-                  horizontalAlignment="left"
-                  height="40"
-                  width="40"
-                  marginLeft="10"
-                  @tap="selectedIndex=index"
-                ></Image>
+                <Image class="main-list-icon" src="res://f1_base" @tap="selectedIndex=index"></Image>
                 <Label
+                  class="main-list-warehouse-name"
                   :text="wareshouse.name"
-                  fontSize="18"
-                  color="white"
-                  fontWeight="200"
-                  verticalAlignment="middle"
-                  horizontalAlignment="left"
-                  marginLeft="60"
                   @tap="selectedIndex=index"
                 ></Label>
                 <Image
+                  class="main-list-arrow"
                   :class="right_arrow"
                   src="res://right_arrow"
-                  height="25"
-                  width="25"
-                  verticalAlignment="middle"
-                  horizontalAlignment="right"
-                  marginRight="10"
                   @tap="onArrowTap"
                 ></Image>
               </GridLayout>
-              <StackLayout backgroundColor="#e9e9e9">
+              <StackLayout class="sublist-container">
                 <template v-for="section in wareshouse.sections">
-                  <GridLayout columns="auto,*" backgroundColor="white" margin="10" borderRadius="2">
-                    <Image
-                      col="0"
-                      src="res://fl_scout"
-                      height="75"
-                      width="75"
-                      vericalAlignment="middle"
-                      horizontalAlignment="left"
-                    ></Image>
+                  <GridLayout class="sublist-main-item" columns="auto,*">
+                    <Image class="sublist-main-icon" col="0" src="res://fl_scout"></Image>
                     <StackLayout col="1" width="100%">
                       <template v-for="(unit,index) in section.units">
-                        <GridLayout
-                          class="border"
-                          orientation="horizontal"
-                          height="75"
-                          width="100%"
-                        >
+                        <GridLayout class="minilist-main-item border" orientation="horizontal">
                           <GridLayout v-if="index==0" marginTop="5">
+                            <Label class="minilist-main-heading-label-left" text="GLP-20-1"></Label>
                             <Label
-                              text="GLP-20-1"
-                              fontSize="10"
-                              horizontalAlignment="left"
-                              verticalAlignment="top"
-                              marginLeft="10"
-                            ></Label>
-                            <Label
+                              class="minilist-main-heading-label-center"
                               col="1"
                               text="Report 3 Minute Ago"
-                              horizontalAlignment="center"
-                              verticalAlignment="top"
-                              fontSize="10"
                             ></Label>
-                            <GridLayout
-                              horizontalAlignment="right"
-                              verticalAlignment="top"
-                              columns="auto,auto"
-                              marginRight="10"
-                            >
+                            <GridLayout class="minilist-main-heading-icons" columns="auto,auto">
                               <Image
+                                class="minilist-main-heading-plug-icon"
                                 col="0"
                                 src="res://plug"
-                                verticalAlignment="top"
-                                horizontalAlignment="left"
-                                height="18"
-                                width="18"
                               ></Image>
                               <Image
+                                class="minilist-main-heading-battery-icon"
                                 col="1"
                                 src="res://battery"
-                                verticalAlignment="top"
-                                horizontalAlignment="right"
-                                height="18"
-                                width="18"
-                                marginLeft="10"
                               ></Image>
                             </GridLayout>
                           </GridLayout>
-                          <Label
-                            :text="unit.unitName"
-                            fontSize="10"
-                            horizontalAlignment="left"
-                            verticalAlignment="middle"
-                            marginLeft="10"
-                          ></Label>
-                          <StackLayout
-                            orientation="horizontal"
-                            horizontalAlignment="center"
-                            verticalAlignment="middle"
-                          >
+                          <Label class="minilist-reading-name" :text="unit.unitName"></Label>
+                          <StackLayout class="minilist-center-container" orientation="horizontal">
+                            <Label class="minilist-min-value-label" :text="unit.minValue"></Label>
                             <Label
-                              verticalAlignment="top"
-                              :text="unit.minValue"
-                              marginTop="12"
-                              fontSize="10"
-                              marginLeft="10"
-                              padding="0"
-                            ></Label>
-                            <Label
+                              class="minilist-current-value-label"
                               :text="unit.currentValue+unit.readingUnit"
-                              fontSize="22"
-                              color="green"
                             ></Label>
-                            <Label
-                              :text="unit.maxValue"
-                              verticalAlignment="top"
-                              marginTop="12"
-                              fontSize="10"
-                              padding="0"
-                            ></Label>
+                            <Label class="minilist-max-value-label" :text="unit.maxValue"></Label>
                           </StackLayout>
                           <StackLayout
+                            class="minilist-reported-at-container"
                             orientation="horizontal"
-                            horizontalAlignment="right"
-                            verticalAlignment="middle"
-                            marginRight="10"
                           >
-                            <Label
-                              col="0"
-                              :text="unit.readAt"
-                              fontSize="22"
-                              padding="0"
-                              margin="0"
-                              color="red"
-                            ></Label>
-                            <Label
-                              col="1"
-                              text="Minute Ago"
-                              verticalAlignment="top"
-                              marginTop="12"
-                              fontSize="10"
-                            ></Label>
+                            <Label class="minilist-reported-at-label" col="0" :text="unit.readAt"></Label>
+                            <Label class="minilist-reported-at-ago-label" text="Minute Ago" col="1"></Label>
                           </StackLayout>
                         </GridLayout>
                       </template>
@@ -634,6 +513,187 @@ export default {
   border-width: 0.1;
   border-color: transparent;
   background-repeat: no-repeat;
+}
+
+.action-container {
+  height: 10%;
+  width: 100%;
+  background-color: #e9e9e9;
+}
+
+.action-labels-container {
+  height: 100%;
+  width: 60%;
+  horizontal-align: center;
+  vertical-align: middle;
+}
+
+.heading-label {
+  height: 60%;
+  font-size: 24;
+  font-weight: 700;
+  color: #ef7e14;
+  text-transform: none;
+  horizontal-align: center;
+}
+
+.report-label {
+  height: 40%;
+  font-size: 15;
+  text-transform: none;
+  horizontal-align: center;
+}
+
+.menu-icon {
+  height: 50%;
+  width: 10%;
+  horizontal-align: left;
+  vertical-align: middle;
+  margin-left: 10;
+}
+
+.main-list-container {
+  height: 90%;
+  width: 100%;
+}
+
+.main-list-item {
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: #ee7e13;
+  height: 60;
+}
+
+.main-list-icon {
+  vertical-align: middle;
+  horizontal-align: left;
+  height: 40;
+  width: 40;
+  margin-left: 10;
+}
+
+.main-list-warehouse-name {
+  font-size: 18;
+  color: white;
+  font-weight: 200;
+  vertical-align: middle;
+  horizontal-align: left;
+  margin-left: 60;
+}
+
+.main-list-arrow {
+  height: 25;
+  width: 25;
+  vertical-align: middle;
+  horizontal-align: right;
+  margin-right: 10;
+}
+
+.sublist-container {
+  background-color: #e9e9e9;
+}
+
+.sublist-main-item {
+  background-color: white;
+  margin: 10;
+  border-radius: 2;
+}
+
+.sublist-main-icon {
+  height: 75;
+  width: 75;
+  vertical-align: middle;
+  horizontal-align: left;
+}
+
+.minilist-main-item {
+  height: 75;
+  width: 100%;
+}
+
+.minilist-main-heading-label-left {
+  font-size: 10;
+  horizontal-align: left;
+  vertical-align: top;
+  margin-left: 10;
+}
+
+.minilist-main-heading-label-center {
+  horizontal-align: center;
+  vertical-align: top;
+  font-size: 10;
+}
+
+.minilist-main-heading-icons {
+  horizontal-align: right;
+  vertical-align: top;
+  margin-right: 10;
+}
+
+.minilist-main-heading-plug-icon {
+  vertical-align: top;
+  horizontal-align: left;
+  height: 18;
+  width: 18;
+}
+
+.minilist-main-heading-battery-icon {
+  vertical-align: top;
+  horizontal-align: right;
+  height: 18;
+  width: 18;
+  margin-left: 10;
+}
+
+.minilist-reading-name {
+  font-size: 10;
+  horizontal-align: left;
+  vertical-align: middle;
+  margin-left: 10;
+}
+
+.minilist-center-container {
+  horizontal-align: center;
+  vertical-align: middle;
+}
+
+.minilist-min-value-label {
+  vertical-align: top;
+  margin-top: 12;
+  font-size: 10;
+  margin-left: 10;
+  padding: 0;
+}
+
+.minilist-current-value-label {
+  font-size: 22;
+  color: green;
+}
+
+.minilist-max-value-label {
+  vertical-align: top;
+  margin-top: 12;
+  font-size: 10;
+  padding: 0;
+}
+
+.minilist-reported-at-container {
+  horizontal-align: right;
+  vertical-align: middle;
+  margin-right: 10;
+}
+
+.minilist-reported-at-label {
+  font-size: 22;
+  padding: 0;
+  margin: 0;
+  color: red;
+}
+
+.minilist-reported-at-ago-label {
+  vertical-align: top;
+  margin-top: 12;
+  font-size: 10;
 }
 
 .border {
