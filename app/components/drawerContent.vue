@@ -1,45 +1,150 @@
 <template lang="html">
-  <ScrollView>
-    <StackLayout width="100%">
-      <Label class="drawer-header" text="Drawer"/>
-
-      <Label
-        v-for="(page, i) in pages"
-        @tap="goToPage(page.component)"
-        class="drawer-item"
-        :text="page.name"
-        :key="i"
-      />
-
-      <Button class="drawer-close-button" @tap="closeDrawer()">Close Drawer</Button>
-    </StackLayout>
-  </ScrollView>
+ 
+    <GridLayout
+        backgroundColor="white"
+        rows="auto,auto"
+        height="100%"
+        width="100%"
+      >
+        <GridLayout row="0" rows="auto,auto" height="30%" width="100%" backgroundColor="#ef7e14">
+          <Button
+            row="0"
+            class="normalized-button cross-button"
+            @tap="closeDrawer()"
+          ></Button>
+          <StackLayout height="80%" width="100%" orientation="vertical" row="1">
+            <Image class="user-image" src="res://icon"></Image>
+            <Label text="Zhiyong Li" color="white" fontSize="18%" marginLeft="10%" marginTop="5%"></Label>
+            <Label
+              text="dev@zhiyongli.com"
+              fontSize="14%"
+              marginLeft="10%"
+              color="white"
+              opacity="0.7"
+              marginBottom="2%"
+            ></Label>
+          </StackLayout>
+        </GridLayout>
+        <StackLayout row="1" height="75%" width="100%" orienation="vertical">
+          <Button class="normalized-button drawer-button home-button" @tap="onHomeTap()" text="Home"></Button>
+          <Button class="normalized-button drawer-button settings-button" @tap="onSettingTap()" text="Setting"></Button>
+          <Button class="normalized-button drawer-button logout-button" @tap="onLogoutTap()" text="Logout"></Button>
+        </StackLayout>
+      </GridLayout>
 </template>
 
 <script>
-import sideDrawer from '~/mixins/sideDrawer'
+import sideDrawer from "~/mixins/sideDrawer";
 export default {
   mixins: [sideDrawer],
-  data () {
+  data() {
     return {
-      // define our pages, making sure the component matches that defined in /app/router/index.js
       pages: [
-        { name: 'Home', component: this.$routes.Home },
-        { name: 'Page One', component: this.$routes.PageOne },
-        { name: 'Page Two', component: this.$routes.PageTwo }
+        { name: "Home", component: this.$routes.Home },
+        { name: "Login", component: this.$routes.Login }
       ]
-    }
+    };
   },
   methods: {
-    goToPage (pageComponent) {
-      // use the manual navigation method
-      this.$navigateTo(pageComponent)
-      // and we probably want to close the drawer when changing pages
-      this.closeDrawer()
+    goToPage(pageComponent) {
+      this.$navigateTo(pageComponent);
+      this.closeDrawer();
+    },
+    onHomeTap() {
+      console.log("Home Clicked");
+      this.closeDrawer();
+      this.$navigateTo(this.$routes.Home);
+      this.closeDrawer();
+    },
+    onSettingTap() {
+      console.log("Setting Clicked");
+      this.closeDrawer();
+    },
+    onLogoutTap() {
+      console.log("Logout Clicked");
+      this.$navigateTo(this.$routes.Login);
+      this.closeDrawer();
     }
   }
-}
+};
 </script>
 
 <style lang="css">
+ActionBar {
+  background-color: #53ba82;
+  color: #ffffff;
+}
+
+.title {
+  text-align: left;
+  padding-left: 16;
+}
+
+.message {
+  vertical-align: center;
+  text-align: center;
+  font-size: 20;
+  color: #333333;
+}
+
+.drawer-header {
+  padding: 50 16 16 16;
+  margin-bottom: 16;
+  background-color: #53ba82;
+  color: #ffffff;
+  font-size: 24;
+}
+
+.drawer-item {
+  padding: 8 16;
+  color: #333333;
+  font-size: 16;
+}
+
+.normalized-button {
+  z-index: 0;
+  border-width: 0.1;
+  border-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.cross-button {
+  width: 18%;
+  height: 12%;
+  margin-top: 6%;
+  background-image: url("res://cross");
+  background-position: center;
+  background-size: contain;
+  horizontal-align: right;
+  vertical-align: top;
+}
+
+.user-image {
+  horizontal-align: left;
+  vertical-align: top;
+  width: 40%;
+  height: 55%;
+  margin-top: 6%;
+  margin-left: 5%;
+}
+
+.drawer-button {
+  background-position: 10% 50%;
+  background-size: 10% 50%;
+  text-align: left;
+  padding-left: 65%;
+  font-weight: 400;
+}
+
+.home-button {
+  background-image: url("res://home");
+}
+
+.settings-button {
+  background-image: url("res://settings");
+}
+
+.logout-button {
+  background-image: url("res://logout");
+}
 </style>

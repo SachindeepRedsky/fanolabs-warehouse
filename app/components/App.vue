@@ -35,14 +35,7 @@
       </GridLayout>
 
       <GridLayout ~mainContent columns="*" rows="*">
-        <!-- <Label
-          class="message"
-          @tap="$refs.drawer.nativeView.showDrawer()"
-          :text="msg"
-          col="0"
-          row="0"
-        />-->
-        <!-- <Login></Login> -->
+
       </GridLayout>
     </RadSideDrawer>
   </Page>

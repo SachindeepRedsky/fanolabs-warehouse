@@ -1,43 +1,46 @@
 <template>
   <Page class="main-page" actionBarHidden="true">
     <StackLayout orientation="vertical" class="main-page">
-      <GridLayout height="8%" width="100%">
-        <Image
-          src="res://filter"
-          height="60%"
-          marginLeft="20"
-          horizontalAlignment="left"
+      <GridLayout height="10%" width="100%" backgroundColor="#e9e9e9">
+        <GridLayout
+          height="100%"
+          width="60%"
+          rows="auto,auto"
+          horizontalAlignment="center"
           verticalAlignment="middle"
-        ></Image>
+        >
+          <Label
+            row="0"
+            height="60%"
+            text="OVERVIEW"
+            fontSize="24"
+            fontWeight="700"
+            color="#ef7e14"
+            textTransform="none"
+            horizontalAlignment="center"
+          ></Label>
+          <Label
+            row="1"
+            height="40%"
+            text="Checked at: July 4th, 12:00:30"
+            fontSize="15"
+            textTransform="none"
+            horizontalAlignment="center"
+          ></Label>
+        </GridLayout>
+
         <Image
           src="res://menu"
-          height="60%"
-          horizontalAlignment="center"
+          height="50%"
+          width="10%"
+          horizontalAlignment="left"
           verticalAlignment="middle"
+          @tap="openDrawer()"
+          marginLeft="10"
         ></Image>
       </GridLayout>
-      <GridLayout rows="auto,auto" backgroundColor="#e9e9e9">
-        <Label
-          row="0"
-          height="6%"
-          text="OVERVIEW"
-          fontSize="24"
-          fontWeight="700"
-          color="#ef7e14"
-          textTransform="none"
-          horizontalAlignment="center"
-        ></Label>
-        <Label
-          row="1"
-          height="4%"
-          text="Checked at: July 4th, 12:00:30"
-          fontSize="15"
-          textTransform="none"
-          horizontalAlignment="center"
-        ></Label>
-      </GridLayout>
 
-      <StackLayout height="80%" width="100%">
+      <StackLayout height="90%" width="100%">
         <ListView for="(wareshouse,index) in wareshouses" class="main-page">
           <v-template>
             <StackLayout orientation="vertical">
@@ -98,25 +101,45 @@
                           height="75"
                           width="100%"
                         >
-                          <GridLayout v-if="index==0" columns="auto,auto,auto,auto" marginTop="5">
-                            <Label col="0" text="GLP-20-1" fontSize="10" marginLeft="10"></Label>
-                            <Label col="1" text="Report 3 Minute Ago" fontSize="10" marginLeft="15"></Label>
-                            <Image
-                              col="2"
-                              src="res://settings"
+                          <GridLayout v-if="index==0" marginTop="5">
+                            <Label
+                              text="GLP-20-1"
+                              fontSize="10"
+                              horizontalAlignment="left"
                               verticalAlignment="top"
-                              marginLeft="15"
-                              height="18"
-                              width="18"
-                            ></Image>
-                            <Image
-                              col="3"
-                              src="res://settings"
+                              marginLeft="10"
+                            ></Label>
+                            <Label
+                              col="1"
+                              text="Report 3 Minute Ago"
+                              horizontalAlignment="center"
                               verticalAlignment="top"
-                              marginLeft="15"
-                              height="18"
-                              width="18"
-                            ></Image>
+                              fontSize="10"
+                            ></Label>
+                            <GridLayout
+                              horizontalAlignment="right"
+                              verticalAlignment="top"
+                              columns="auto,auto"
+                              marginRight="10"
+                            >
+                              <Image
+                                col="0"
+                                src="res://plug"
+                                verticalAlignment="top"
+                                horizontalAlignment="left"
+                                height="18"
+                                width="18"
+                              ></Image>
+                              <Image
+                                col="1"
+                                src="res://battery"
+                                verticalAlignment="top"
+                                horizontalAlignment="right"
+                                height="18"
+                                width="18"
+                                marginLeft="10"
+                              ></Image>
+                            </GridLayout>
                           </GridLayout>
                           <Label
                             :text="unit.unitName"
@@ -189,7 +212,7 @@
 
 <script>
 // import Home from "./home";
-import sideDrawer from "../mixins/sideDrawer";
+import sideDrawer from "~/mixins/sideDrawer";
 
 export default {
   mixins: [sideDrawer],
